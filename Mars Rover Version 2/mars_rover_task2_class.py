@@ -17,8 +17,8 @@ class MarsRover:
     }
 
     def __init__(self, plateau_width: int, plateau_height: int, x: int, y: int, direction: str):
-        self._plateau_width = plateau_width
-        self._plateau_height = plateau_height
+        self._plateau_width = plateau_width + 1
+        self._plateau_height = plateau_height + 1
         self._x = x
         self._y = y
         self._direction = direction
