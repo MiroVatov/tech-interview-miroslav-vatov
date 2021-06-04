@@ -2,7 +2,6 @@ from collections import deque
 
 
 class MarsRover:
-
     RIGHT_ROTATION_DICT = {
         'N': 'E',
         'E': 'S',
@@ -22,7 +21,7 @@ class MarsRover:
         self._plateau_height = plateau_height
         self._x = x
         self._y = y
-        self.direction = direction
+        self._direction = direction
         self.move = ""
 
     @property
@@ -39,7 +38,9 @@ class MarsRover:
 
     @direction.setter
     def direction(self, value):
-        if value in ['N', 'W', 'E', 'S']:
+        if value not in ['N', 'W', 'E', 'S']:
+            print(f"{value} is wrong! Chosen direction not correct! Please chose from: N, E, W, S")
+        else:
             self._direction = value
 
     def rover_move(self, move):
@@ -69,9 +70,12 @@ class MarsRover:
     def right_rotate(self):
         self.direction = self.RIGHT_ROTATION_DICT[self.direction]
 
+    @staticmethod
+    def print_final_output(output):
+        return f"{output[0][0]} {output[0][1]} {output[0][2]}"
+
 
 def main():
-
     def check_valid_coordinates(x, y, width, height):
         if (0 <= x <= width) and (0 <= y <= height):
             return True
@@ -82,7 +86,7 @@ def main():
 
     '''
     Please use only one of the moves lists/arrays provided at a time and put a comment on the others, while you are testing the code!
-    
+
     '''
     # moves = [["LMLMLMLMM"], ["MMRMMRMRRM"]]
     moves = [['RMMMLMMLMM'], ['MMRMMRMRRM']]
@@ -100,13 +104,13 @@ def main():
 
         if not check_valid_coordinates(x_coordinate, y_coordinate, plateau_width, plateau_height):
             print("The chosen coordinates are out of the plateau field." + '\n' f"Please choose X less than or equal to "
-                    f"{plateau_width} and Y less than or equal to {plateau_height}")
+                                                                         f"{plateau_width} and Y less than or equal to {plateau_height}")
             continue
 
         direction = input("Please insert direction from: N, W, E, S")
 
         if direction not in ["N", "E", "W", "S"]:
-            print("Chosen direction not correct! Please chose from: N, E, W, S")
+            print(f"{direction} is wrong! Chosen direction not correct! Please chose from: N, E, W, S")
             continue
 
         mars_rover = MarsRover(plateau_width, plateau_height, x_coordinate, y_coordinate, direction)
@@ -123,9 +127,10 @@ def main():
                 mars_rover.return_rover_to_previous_position()
 
         final_output.append([mars_rover.x, mars_rover.y, mars_rover.direction])
-        print(f"{final_output[0][0]} {final_output[0][1]} {final_output[0][2]}")
+        print(mars_rover.print_final_output(final_output))
         final_output = []
 
 
 if __name__ == '__main__':
     main()
+
