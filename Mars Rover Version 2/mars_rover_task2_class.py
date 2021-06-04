@@ -77,16 +77,18 @@ class MarsRover:
 
 def main():
     def check_valid_coordinates(x, y, width, height):
-        if (0 <= x <= width) and (0 <= y <= height):
+        if (0 <= x < width) and (0 <= y < height):
             return True
         return False
 
     plateau_width = int(input("Please insert plateau width:"))
     plateau_height = int(input("Please insert plateau height:"))
 
+
+    # TODO Please use only one of the moves lists/arrays provided at a time and put a comment on the others, while you are testing the code!
+
     '''
     Please use only one of the moves lists/arrays provided at a time and put a comment on the others, while you are testing the code!
-
     '''
     # moves = [["LMLMLMLMM"], ["MMRMMRMRRM"]]
     moves = [['RMMMLMMLMM'], ['MMRMMRMRRM']]
@@ -103,14 +105,14 @@ def main():
         y_coordinate = int(input("Please insert the Y coordinate:"))
 
         if not check_valid_coordinates(x_coordinate, y_coordinate, plateau_width, plateau_height):
-            print("The chosen coordinates are out of the plateau field." + '\n' f"Please choose X less than or equal to "
-                                                                         f"{plateau_width} and Y less than or equal to {plateau_height}")
+            print("The chosen coordinates are out of the plateau field." + '\n' f"Please choose X less than "
+                                                                         f"{plateau_width} and Y less than {plateau_height}")
             continue
 
         direction = input("Please insert direction from: N, W, E, S")
 
         if direction not in ["N", "E", "W", "S"]:
-            print(f"{direction} is wrong! Chosen direction not correct! Please chose from: N, E, W, S")
+            print(f"{direction} is wrong! Chosen direction not correct! Please choose from: N, E, W, S")
             continue
 
         mars_rover = MarsRover(plateau_width, plateau_height, x_coordinate, y_coordinate, direction)
